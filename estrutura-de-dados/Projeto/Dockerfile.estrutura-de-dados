@@ -1,0 +1,12 @@
+# Etapa de build
+FROM gcc:13 AS builder
+WORKDIR /build
+COPY . .
+# RUN gcc main.c -o app
+RUN gcc main.c $(find src -name "*.c") -Isrc -o app
+
+# Etapa final
+FROM debian:bookworm-slim
+WORKDIR /app
+COPY --from=builder /build/app .
+CMD ["./app"]

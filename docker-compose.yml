@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  estrutura-de-dados:
+    build:
+      context: ./estrutura-de-dados
+      dockerfile: Dockerfile.estrutura-de-dados
+    container_name: estrutura-de-dados
+    ports:
+      - "${APP_ESTRUTURA_DE_DADOS_PORT}:${APP_ESTRUTURA_DE_DADOS_PORT}"
+    volumes:
+      - ./estrutura-de-dados:/estrutura-de-dados
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./estrutura-de-dados/.env
+    environment:
+      APP_HOST: "${APP_ESTRUTURA_DE_DADOS_HOST}"
+      APP_PORT: "${APP_ESTRUTURA_DE_DADOS_PORT}"
+

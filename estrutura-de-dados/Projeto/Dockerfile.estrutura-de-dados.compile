@@ -1,0 +1,21 @@
+FROM debian:bookworm-slim
+
+ARG APP_DIR=/estrutura-de-dados
+ENV APP_DIR=${APP_DIR}
+
+WORKDIR ${APP_DIR}
+
+# Instala compilador C
+RUN apt-get update && \
+    apt-get install -y gcc make && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copia os arquivos do projeto
+COPY . .
+
+# Compila o programa (supondo main.c)
+RUN gcc main.c -o app
+
+# Executa o binário
+CMD ["./app"]
