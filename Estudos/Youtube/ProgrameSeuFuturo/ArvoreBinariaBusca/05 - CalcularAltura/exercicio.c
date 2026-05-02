@@ -46,6 +46,19 @@ void imp_pre(NoArv *a){
 
 }
 
+int calcula_altura (NoArv *raiz){ //A Altura é a maior distancia entre a raiz e um nó folha
+    if(raiz == NULL) return -1;
+    int altura_esquerda = calcula_altura(raiz->esquerda);
+    int altura_direita = calcula_altura(raiz->direita);
+    if(altura_esquerda > altura_direita){
+        return altura_esquerda + 1;
+    }
+    else {
+        return altura_direita + 1;
+    }
+    
+}
+
 void imp_sim(NoArv *a){
 
     if(a){
@@ -70,7 +83,7 @@ int main (){
 
     do {
 
-        printf("\n\nDigite: \n1: Para inserir elementos na arvore.\n2: Para imprimir a arvore.\n0: Para sair.\n\n");
+        printf("\n\nDigite: \n1: Para inserir elementos na arvore.\n2: Para imprimir a arvore.\n3: Para calcular altura da arvore.\n0: Para sair.\n\n");
         scanf("%d", &opcao);
         switch(opcao){
             case(1):
@@ -85,6 +98,11 @@ int main (){
                 imp_pre(raiz);
                 printf("\n\nImprimindo Arvore simetrica\n\n");
                 imp_sim(raiz);
+                break;
+            case(3):
+                printf("\n\nCalculando Altura: \n\n");
+                int altura = calcula_altura(raiz);
+                printf("\n\nAltura: %d\n\n", altura);
                 break;
             default:
                 if(opcao!=0){

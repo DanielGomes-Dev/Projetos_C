@@ -3,7 +3,7 @@
 
 ## Rodando
 
-gcc exercicio01.c -o exercicio ; .\exercicio.exe
+gcc exercicio.c -o exercicio ; .\exercicio.exe
 
 
 \n

@@ -36,7 +36,7 @@ NoArv* inserir_v1(NoArv *raiz, int num){
     }
 }
 
-NoArv* buscar_versao_2(NoArv *raiz, int num){ // Não recursiva
+NoArv* buscar_versao_2(NoArv *raiz, int num){ // Não recursiva (Iterativa)
     while(raiz){
         if(num < raiz->valor){
             raiz = raiz->esquerda;

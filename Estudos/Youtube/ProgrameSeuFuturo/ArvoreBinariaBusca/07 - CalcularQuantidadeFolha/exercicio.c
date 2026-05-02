@@ -46,6 +46,19 @@ void imp_pre(NoArv *a){
 
 }
 
+int calcula_quantidade_folha (NoArv *raiz){ //A Altura é a maior distancia entre a raiz e um nó folha
+    if(raiz == NULL) return 0;
+    if(raiz->direita == NULL && raiz->esquerda==NULL) return 1;
+    
+    return calcula_quantidade_folha(raiz->esquerda) + calcula_quantidade_folha(raiz->direita);
+}
+
+int calcula_quantidade_folha_ternario (NoArv *raiz){ //A Altura é a maior distancia entre a raiz e um nó folha
+    return raiz == NULL ? 0 : (raiz->direita == NULL && raiz->esquerda==NULL) ? 1 : calcula_quantidade_folha(raiz->esquerda) + calcula_quantidade_folha(raiz->direita);
+}
+
+
+
 void imp_sim(NoArv *a){
 
     if(a){
@@ -70,7 +83,7 @@ int main (){
 
     do {
 
-        printf("\n\nDigite: \n1: Para inserir elementos na arvore.\n2: Para imprimir a arvore.\n0: Para sair.\n\n");
+        printf("\n\nDigite: \n1: Para inserir elementos na arvore.\n2: Para imprimir a arvore.\n3: Para calcular Quantidade de folha.\n0: Para sair.\n\n");
         scanf("%d", &opcao);
         switch(opcao){
             case(1):
@@ -85,6 +98,11 @@ int main (){
                 imp_pre(raiz);
                 printf("\n\nImprimindo Arvore simetrica\n\n");
                 imp_sim(raiz);
+                break;
+            case(3):
+                printf("\n\nCalculando Quantidade de Folhas: \n\n");
+                int quantidade_folha = calcula_quantidade_folha_ternario(raiz);
+                printf("\n\nQuantidade de folha: %d \n\n", quantidade_folha);
                 break;
             default:
                 if(opcao!=0){
