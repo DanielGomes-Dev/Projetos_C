@@ -74,7 +74,44 @@ NoArv* remover_no_folha (NoArv *raiz, int chave){
     }
 }
 
+NoArv* remover_no_um_filho (NoArv *raiz, int chave){
+    if(raiz == NULL) return NULL;
+    else{
+        if(raiz->valor == chave){
 
+            if(raiz->esquerda == NULL && raiz->direita == NULL){
+                free(raiz);
+                printf("\nNo Folha Removido Com Sucesso.\n");
+                return NULL;
+            }
+            else{
+                if(raiz->esquerda != NULL && raiz->direita != NULL){
+                    // Remover com 2 Filhos
+                }
+                else {
+                    if(raiz->esquerda == NULL){
+                        NoArv *aux = raiz->direita;
+                        free(raiz);
+                        printf("\nNo Com Um Filho a Direita Removido Com Sucesso.\n");
+                        return aux;
+                    }
+                    else if(raiz->direita == NULL){
+                        NoArv *aux = raiz->esquerda;
+                        printf("\nNo Com Um Filho a esquerda Removido Com Sucesso.\n");
+                        free(raiz);
+                        return aux;
+                    }
+                }
+            }
+
+        }else{
+            raiz->esquerda = remover_no_um_filho(raiz->esquerda, chave);
+            raiz->direita = remover_no_um_filho(raiz->direita, chave);
+        }
+
+        return raiz;
+    }
+}
 
 
 
@@ -102,7 +139,7 @@ int main (){
 
     do {
 
-        printf("\n\nDigite: \n1: Para inserir elementos na arvore.\n2: Para imprimir a arvore.\n3: Remover no Folha.\n0: Para sair.\n\n");
+        printf("\n\nDigite: \n1: Para inserir elementos na arvore.\n2: Para imprimir a arvore.\n3: Remover no Folha ou Com 1 Filho.\n0: Para sair.\n\n");
         scanf("%d", &opcao);
         switch(opcao){
             case(1):
@@ -120,7 +157,7 @@ int main (){
             case(3):
                 printf("\n\nRemover no Folha: \n\n");
                 scanf("%d", &num);
-                raiz = remover_no_folha(raiz, num);
+                raiz = remover_no_um_filho(raiz, num);
                 imp_sim(raiz);
 
                 break;
