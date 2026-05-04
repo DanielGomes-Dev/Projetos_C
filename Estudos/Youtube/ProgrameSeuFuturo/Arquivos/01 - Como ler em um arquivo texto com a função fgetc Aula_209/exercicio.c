@@ -20,26 +20,8 @@ void escrever_fputc(char f[]) // Escreve Caracter
         printf("\nErro ao Abrir o Arquivo\n");
 }
 
-void escrever_fputs(char f[]) // Escreve String Completa
-{
-    FILE *file = fopen(f, "w");
-    char letra;
-    if (file)
-    {
-        printf("\n Digite um texto e pressione ENTER ao Finalizar! \n");
-        scanf("%c", &letra);
-        while (letra != '\n')
-        {
-            fputc(letra, file);
-            scanf("%c", &letra);
-        }
-        fclose(file);
-    }
-    else
-        printf("\nErro ao Abrir o Arquivo\n");
-}
 
-void ler(char f[])
+void ler_fgetc(char f[])
 {
     FILE *file = fopen(f, "r");
     char letra;
@@ -67,7 +49,7 @@ int main()
     char file[] = {"conto.txt"};
 
 
-    escrever(file);
-    ler(file);
+    escrever_fputc(file);
+    ler_fgetc(file);
 
 }

@@ -1,0 +1,2 @@
+nome: Daniel, idade: 26, Altura: 1.80 
+nome: Roberto, idade: 34, Altura: 1.74 
