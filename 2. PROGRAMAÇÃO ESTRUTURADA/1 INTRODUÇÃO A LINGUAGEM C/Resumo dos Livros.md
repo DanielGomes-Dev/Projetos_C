@@ -1,0 +1,18 @@
+# Resumo dos Livros — 1. Introdução à Linguagem C
+
+## Celes — Introdução a Estruturas de Dados (Cap. 1-4)
+> Livro em PDF digitalizado sem texto pesquisável; conteúdo abaixo obtido via extração OCR (`Livros/00 - celes extracao google.md`) e conferido no texto corrido — ver os resumos de cada subtópico (1.1-1.8) para o detalhamento seção por seção.
+
+Os quatro capítulos iniciais de Celes (não só 1-2) formam a Parte I do livro até a introdução de vetores: Cap. 1 "Conceitos fundamentais" (modelo de computador, compilação, ciclo editar/compilar/ligar/testar), Cap. 2 "Expressões" (variáveis, tipos básicos, operadores, entrada/saída — `scanf`/`printf`), Cap. 3 "Controle de fluxo" (`if`/`else`, `while`/`for`/`do-while`, `break`/`continue`, `switch`) e Cap. 4 "Funções" (definição, pilha de execução, ponteiros para variáveis/passagem por referência, variáveis globais/estáticas, recursividade, pré-processador). Ao contrário do que a versão anterior deste resumo (escrita sem acesso ao texto) supunha, o tratamento **não** é mais enxuto que o K&R — é comparável em profundidade, e em alguns pontos (a explicação visual, passo a passo, da pilha de execução no Cap. 4) vai além. A diferença real é de ênfase, não de profundidade: Celes usa um único exemplo evolutivo (o cálculo do fatorial, reimplementado em `while`/`for`/`do-while`/recursivo ao longo dos capítulos 3-4) para amarrar os conceitos, enquanto o K&R varia os exemplos a cada seção.
+
+## K&R — C: A Linguagem de Programação (Cap. 1-4, "Introdução geral")
+Os quatro primeiros capítulos do K&R formam o núcleo do que qualquer programador C precisa saber antes de ir a fundo em ponteiros e estruturas (temas dos capítulos 5-6). O Capítulo 1 é uma "introdução através de exemplos": apresenta `main`, o programa "hello, world", o comando `for`, constantes simbólicas (`#define`) e uma coleção de programas pequenos (cópia de caracteres com `getchar`/`putchar`, contagem de linhas, arranjos, funções, argumentos passados por valor, arranjos de caracteres) — a ideia é que o leitor já saia escrevendo programas reais antes de ver as regras formais.
+
+O Capítulo 2 ("Tipos de Dados, Operadores e Expressões") formaliza os tipos básicos (`char`, `int`, `float`, `double`) e seus qualificadores, constantes, declarações, os operadores aritméticos, relacionais, lógicos e de atribuição, o operador condicional `?:`, e as regras de conversão e precedência — é a referência de sintaxe que sustenta tudo depois.
+
+O Capítulo 3 ("Fluxo de Controle") cobre `if-else`, `else-if`, `switch`, os laços `while`, `for` e `do-while`, e os comandos `break`, `continue` e `goto`. O Capítulo 4 ("Funções e Estrutura de um Programa") trata da definição de funções, tipos de retorno diferentes de `int`, passagem de argumentos por valor, variáveis externas, regras de escopo, variáveis estáticas e recursividade — encerrando com o pré-processador C.
+
+Um fio condutor do livro é que os autores preferem introduzir cada recurso via um programa pequeno e completo, e só depois generalizar a regra — por isso vale ler os subtópicos 1.1 a 1.8 (cada um mapeado a uma seção específica) em vez de tentar resumir os quatro capítulos de uma vez.
+
+## Síntese
+Este bloco é fundacional: sem dominar tipos, operadores, controle de fluxo e funções (temas dos Capítulos 1-4 do K&R, cobertos rapidamente também por Celes), nada do resto do curso — ponteiros, estruturas, gerência de memória — faz sentido. A estratégia mais eficiente é usar o K&R como referência de sintaxe e semântica (é mais completo e preciso) e Celes como o contexto de uso dentro de estruturas de dados; os resumos dos subtópicos 1.1-1.8 detalham cada seção individualmente.

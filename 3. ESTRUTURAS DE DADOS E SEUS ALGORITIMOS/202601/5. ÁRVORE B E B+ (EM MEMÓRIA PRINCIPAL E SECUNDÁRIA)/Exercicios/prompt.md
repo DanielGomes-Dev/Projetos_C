@@ -1,0 +1,730 @@
+
+--- Exercicio para Resolver ---
+
+
+
+(Q1) Dada uma árvore B que é uma folha com a informação {20, 50, 60} e t = 2:
+(a) insira os elementos {1, 64, 12, 18, 66, 38, 95, 58, 59, 70, 68, 39, 62, 7, 55, 43, 16, 67, 34, 35}
+nesta árvore, indicando as rotações necessárias; e
+(b) retire os elementos {50, 95, 70, 60, 35} desta árvore, explicitando as operações.
+
+
+--- Exercicio para Resolver ---
+
+
+
+
+
+--- Expecificações de saida ---
+
+
+
+- **Mapeamento e Identificação**: Identifique o exercício dentro do texto. Descreva brevemente do que se trata o problema e qual tópico da matéria estamos resolvendo.
+
+
+
+- **Transcrição Fiel**: Transcreva o enunciado do exercício exatamente como ele aparece no texto original, sem alterações.
+
+
+
+- **Resolução Baseada no Texto**: Resolva o exercício utilizando exclusivamente a metodologia, as fórmulas e as explicações contidas no texto. O foco é replicar o raciocínio do professor.
+
+    - O Professor gosta que a resolução seja feita exatamente igual a do texto
+
+
+
+- **Passo a Passo Detalhado**: Explique a resolução detalhadamente, sem pular etapas. Cada passo deve vir acompanhado de uma explicação (retirada do texto) que justifique aquela ação.
+
+    - Tendo em vista que nao li o texto.
+
+    - Explique a resolução de forma detalhada 
+
+    - Ensine como resolver passo a passo sem pular etapa
+
+
+
+- Ao final de uma formula de resposta que seja igual a do Texto.
+
+
+
+--- Expecificações de saida ---
+
+
+
+
+
+--- Texto --- 
+
+## 2. Árvores B
+
+(*) Figuras obtidas de T.H. Cormen, C.E. Leiserson e R.L. Rivest, Algoritmos, Campus.
+
+### Definição de árvores B
+
+* **Suposição:**
+* Qualquer informação extra associada a uma chave está armazenada no nó onde a chave aparece
+
+
+* **Uma árvore B possui as seguintes propriedades:**
+* Todo nó de árvore tem as seguintes características:
+1. nchaves (int)
+2. nchaves armazenadas em ordem crescente ($ch_1 < ch_2 < … < ch_{nchaves}$)
+3. folha (int)
+4. (nchaves + 1) ponteiros para os filhos
+
+
+* Cada nó interno possui (nchaves + 1) ponteiros válidos para os seus filhos. Já nas folhas, esses ponteiros são iguais a NULL
+
+
+
+### Definição de árvores B (cont.)
+
+→ As chaves de um nó separam os intervalos de chaves que podem ser armazenadas em cada subárvore
+
+→ Cada folha tem a mesma altura $h$ (da raiz), onde $h = \log_t n$.
+
+→ Existem limites inferiores e superiores sobre o número de chaves que cada nó pode possuir, expressos em termos de um inteiro $t$, $t \geq 2$, chamado de **grau mínimo** da árvore B:
+
+* Todo nó, exceto a raiz, deve ter, pelo menos, $t – 1$ chaves (e $t$ filhos). O limite inferior da raiz é 1; e
+* Todo nó pode conter, no máximo, $2t – 1$ chaves (e $2t$ filhos).
+
+### Exemplo de árvore B mínima
+
+* Árvore B mais simples: $t = 2 \rightarrow$ árvore 2-3-4
+* Na prática $t$ é muito maior!
+* Altura? $h = \log_t n$
+
+### Estrutura e operações básicas
+
+```c
+typedef struct arvb{
+  int nchaves, folha;
+  int *chave;
+  struct arvb **filho; // Ajuste técnico: ponteiro de ponteiro para os filhos
+} TARVB;
+
+//Inicializar uma árvore
+TARVB* inicializa(void){
+  return NULL;
+}
+
+//Cria um nó de árvore
+TARVB* Cria(int t){
+  TARVB *novo = (TARVB *) malloc(sizeof(TARVB));
+  novo->nchaves = 0;
+  novo->chave = (int *) malloc(sizeof(int) * (2*t-1));
+  novo->folha = 1;
+  novo->filho = (TARVB **) malloc(sizeof(TARVB *)*2*t);
+  int i;
+  for(i = 0; i < 2*t; i++)
+    novo->filho[i] = NULL;
+  return novo;
+}
+
+```
+
+### Operações básicas (Impressão e Liberação)
+
+> **Algoritmos de “uma passagem”?** Algoritmos que seguem em sentido descendente, a partir da raiz da árvore, sem ter que subir na estrutura!
+
+```c
+void imp_aux(TARVB *a, int andar){
+  if(a){
+    int i,j;
+    for(i=0; i<=a->nchaves-1; i++){
+      imp_aux(a->filho[i],andar+1);
+      for(j=0; j<=andar; j++) printf(" ");
+      printf("%d\n", a->chave[i]);
+    }
+    imp_aux(a->filho[i],andar+1);
+  }
+}
+
+//Impressão de uma árvore
+void imprime(TARVB *a){
+  imp_aux(a,0);
+}
+
+//Liberação de uma árvore
+void libera(TARVB *a){
+  if(a){
+    if(!a->folha){
+      int i;
+      for(i = 0; i <= a->nchaves; i++)
+        libera(a->filho[i]);
+    }
+    free(a->filho);
+    free(a->chave);
+    free(a);
+  }
+}
+
+```
+
+### Operações básicas (Busca)
+
+```c
+TARVB *Busca(TARVB* a, int ch){
+  if(!a) return NULL;
+  int i = 0;
+  while(i < a->nchaves && ch > a->chave[i]) i++;
+  if(i < a->nchaves && ch == a->chave[i]) return a;
+  if(a->folha) return NULL;
+  return Busca(a->filho[i], ch);
+}
+
+```
+
+### 3. Inserção na Árvore B
+
+* **Algoritmo preemptivo?** Não deixa o problema acontecer: corrige a árvore antes!
+* **Qual é o problema?** Nó no caminho de inserção contendo $2t – 1$ chaves.
+* **Ideia do algoritmo?**
+* Procura-se pela posição (na folha) para a inserção.
+* Inserção pode violar o limite superior.
+
+
+
+### Resolução do Problema (Divisão)
+
+* **Analisando a partir do nó pai:** se a inserção deve ser feita no nó $y$, e $y$ está completo:
+* Dividir um nó $y$ completo ao redor da chave $t$, em dois nós com $t – 1$ chaves.
+* A chave $t$ (chave mediana) desloca-se para o pai do nó $y$.
+* O pai não estará completo porque estamos usando um algoritmo preemptivo (corrige a árvore antes do problema ocorrer).
+
+
+
+### Algoritmo de “uma passagem”: inserção
+
+* Não se espera descobrir a necessidade de divisão.
+* À medida que se desce na árvore à procura pela folha a ser inserida a chave, **divide-se cada nó completo encontrado** (incluindo-se a raiz e a folha).
+* Assim, sempre que for necessário dividir um nó completo, temos a certeza de que o pai não está completo.
+
+### Operação de Divisão
+
+> **Nota:** Esta operação pode causar o incremento da altura da árvore!
+
+**Entradas:**
+
+1. Nó interno $x$ não completo;
+2. Índice $i$;
+3. Nó completo $y$, tal que é o $i$-ésimo filho de $x$;
+4. $t$.
+
+**Ideia:**
+
+* Divisão de $y$ em 2;
+* Ajustar $x$ para que ele tenha um filho adicional;
+* **Para a raiz completa:** Transforma a raiz em um filho de um nó raiz vazio para usar o algoritmo de divisão; SOMENTE dessa maneira a árvore cresce uma unidade em altura.
+
+### Implementação da Inserção e Divisão
+
+```c
+TARVB *Insere(TARVB *T, int k, int t){
+  if(Busca(T,k)) return T;
+  if(!T){
+    T=Cria(t);
+    T->chave[0] = k;
+    T->nchaves=1;
+    return T;
+  }
+  if(T->nchaves == (2*t)-1){
+    TARVB *S = Cria(t); // Ajustado de TAB para TARVB conforme struct
+    S->nchaves=0;
+    S->folha = 0;
+    S->filho[0] = T;
+    S = Divisao(S,1,T,t);
+    S = Insere_Nao_Completo(S,k,t);
+    return S;
+  }
+  T = Insere_Nao_Completo(T,k,t);
+  return T;
+}
+
+TARVB *Divisao(TARVB *x, int ind, TARVB* y, int t){
+  TARVB *z = Cria(t);
+  z->nchaves = t-1;
+  z->folha = y->folha;
+  int j;
+  for(j=0;j<t-1;j++) z->chave[j] = y->chave[j+t];
+  if(!y->folha){
+    for(j=0;j<t;j++){
+      z->filho[j] = y->filho[j+t];
+      y->filho[j+t] = NULL;
+    }
+  }
+  y->nchaves = t-1;
+  for(j=x->nchaves; j>=ind; j--)
+    x->filho[j+1]=x->filho[j];
+  x->filho[ind] = z;
+  for(j=x->nchaves; j>=ind; j--)
+    x->chave[j] = x->chave[j-1];
+  x->chave[ind-1] = y->chave[t-1];
+  x->nchaves++;
+  return x;
+}
+
+TARVB *Insere_Nao_Completo(TARVB *x, int k, int t){
+  int i = x->nchaves-1;
+  if(x->folha){
+    while((i>=0) && (k<x->chave[i])){
+      x->chave[i+1] = x->chave[i];
+      i--;
+    }
+    x->chave[i+1] = k;
+    x->nchaves++;
+    return x;
+  }
+  while((i>=0) && (k<x->chave[i])) i--;
+  i++;
+  if(x->filho[i]->nchaves == ((2*t)-1)){
+    x = Divisao(x, (i+1), x->filho[i], t);
+    if(k>x->chave[i]) i++;
+  }
+  x->filho[i] = Insere_Nao_Completo(x->filho[i], k, t);
+  return x;
+}
+
+```
+
+---
+
+Conforme solicitado, procederei com a transcrição fiel dos tópicos apresentados, removendo as redundâncias das animações e consolidando os casos do algoritmo.
+
+---
+
+## Operações básicas: retirada
+
+* Mais complicada que a inserção: chave pode ser eliminada de qualquer nó (não só folha)
+* Retirada em um nó interno: filhos podem ser reorganizados porque não se pode violar o limite inferior de chaves em uma árvore B
+* Deve-se garantir que nenhum nó terá menos que t – 1 chaves, exceto a raiz
+* Algoritmo de retirada é chamado recursivamente em um nó x, com no mínimo t chaves
+* A condição supracitada exige, pelo menos, 1 chave a mais que o mínimo
+
+### Algoritmo de retirada
+
+* **CASO 1:** se a chave k está em x, e x é folha, elimine k de x
+* **CASO 2:** se a chave k está em x:
+* **CASO 2A:** se o filho y que precede k no nó x tem, ao menos, t chaves, então encontre o predecessor k’ de k na árvore com raiz em y. Elimine recursivamente k’ e substitua k por k’ em x
+* **CASO 2B:** se o filho z que sucede k no nó x tem, ao menos, t chaves, então encontre o sucessor k’ de k na árvore com raiz em z. Elimine recursivamente k’ e substitua k por k’ em x
+* **CASO 2C:** se tanto y e z têm apenas t – 1 chaves, faça a intercalação de k com todas as chaves de z em y, de modo que x perca a chave k e o ponteiro z. Assim, y terá 2t – 1 chaves. A seguir retire recursivamente k de y.
+
+
+* **CASO 3:** se a chave k não está em x, descubra qual é o filho f onde k pode estar. Se f tiver t – 1 chaves, faça ou o CASO 3A, ou o CASO 3B.
+* Essa ação é necessária para garantir que desceremos até um nó contendo, ao menos, t chaves. Em seguida, execute a recursão sobre o filho apropriado de x
+* **CASO 3A:** se a subárvore onde k deve estar tiver somente t – 1 chaves, mas possuir um irmão com t chaves, forneça ao pai uma chave do irmão, e retire o ponteiro associado a chave emprestada, caso este ponteiro exista
+* **CASO 3B:** se o filho f (que pode conter k) de x tem t - 1 chaves e todos os seus irmãos imediatos têm t – 1 chaves também, faça a intercalação de f com um de seus irmãos, o que envolve mover uma chave do pai para o novo nó intercalado
+
+
+
+> **Nota:** CASOS 2C e 3B são as únicas operações que podem causar o decremento da altura da árvore
+
+### Considerações finais
+
+* Maioria das chaves estão armazenadas nas folhas
+* Algoritmo continua ser de uma passagem
+* Mesmo nos CASOS 2A e 2B, onde se substitui chaves (ou pelo predecessor, ou pelo sucessor, respectivamente)
+
+---
+
+
+
+
+#include "TARVB.h"
+
+TARVB *TARVB_Cria(int t){
+  TARVB* novo = (TARVB*)malloc(sizeof(TARVB));
+  novo->nchaves = 0;
+  novo->chave =(int*)malloc(sizeof(int*)*((t*2)-1));
+  novo->folha=1;
+  novo->filho = (TARVB**)malloc(sizeof(TARVB*)*t*2);
+  int i;
+  for(i = 0; i < (t*2); i++) novo->filho[i] = NULL;
+  return novo;
+}
+
+
+TARVB *TARVB_Libera(TARVB *a){
+  if(a){
+    if(!a->folha){
+      int i;
+      for(i = 0; i <= a->nchaves; i++) TARVB_Libera(a->filho[i]);
+    }
+    free(a->chave);
+    free(a->filho);
+    free(a);
+    return NULL;
+  }
+}
+
+
+void imp_rec(TARVB *a, int andar){
+  if(a){
+    int i,j;
+    for(i=0; i<=a->nchaves-1; i++){
+      imp_rec(a->filho[i],andar+1);
+      for(j=0; j<=andar; j++) printf("\t");
+      printf("%d\n", a->chave[i]);
+    }
+    imp_rec(a->filho[i],andar+1);
+  }
+}
+
+
+void TARVB_Imprime(TARVB *a){
+  imp_rec(a, 0);
+}
+
+void imp_rec2(TARVB *a, int andar){
+  if(a){
+    int i,j;
+    imp_rec2(a->filho[a->nchaves],andar+1);
+    for(i=a->nchaves-1; i>=0; i--){
+      for(j=0; j<=andar; j++) printf("\t");
+      printf("%d\n", a->chave[i]);
+      imp_rec2(a->filho[i],andar+1);
+    }
+  }
+}
+
+
+void TARVB_Imprime2(TARVB *a){
+  imp_rec2(a, 0);
+}
+
+TARVB *TARVB_Busca(TARVB* x, int ch){
+  if(!x) return NULL;
+  int i = 0;
+  while(i < x->nchaves && ch > x->chave[i]) i++;
+  if(i < x->nchaves && ch == x->chave[i]) return x;
+  if(x->folha) return NULL;
+  return TARVB_Busca(x->filho[i], ch);
+}
+
+
+TARVB *TARVB_Inicializa(){
+  return NULL;
+}
+
+
+TARVB *Divisao(TARVB *x, int i, TARVB* y, int t){
+  TARVB *z=TARVB_Cria(t);
+  z->nchaves= t - 1;
+  z->folha = y->folha;
+  int j;
+  for(j=0;j<t-1;j++) z->chave[j] = y->chave[j+t];
+  if(!y->folha){
+    for(j=0;j<t;j++){
+      z->filho[j] = y->filho[j+t];
+      y->filho[j+t] = NULL;
+    }
+  }
+  y->nchaves = t-1;
+  for(j=x->nchaves; j>=i; j--) x->filho[j+1]=x->filho[j];
+  x->filho[i] = z;
+  for(j=x->nchaves; j>=i; j--) x->chave[j] = x->chave[j-1];
+  x->chave[i-1] = y->chave[t-1];
+  x->nchaves++;
+  return x;
+}
+
+
+TARVB *Insere_Nao_Completo(TARVB *x, int k, int t){
+  int i = x->nchaves-1;
+  if(x->folha){
+    while((i>=0) && (k<x->chave[i])){
+      x->chave[i+1] = x->chave[i];
+      i--;
+    }
+    x->chave[i+1] = k;
+    x->nchaves++;
+    return x;
+  }
+  while((i>=0) && (k<x->chave[i])) i--;
+  i++;
+  if(x->filho[i]->nchaves == ((2*t)-1)){
+    x = Divisao(x, (i+1), x->filho[i], t);
+    if(k>x->chave[i]) i++;
+  }
+  x->filho[i] = Insere_Nao_Completo(x->filho[i], k, t);
+  return x;
+}
+
+
+TARVB *TARVB_Insere(TARVB *T, int k, int t){
+  if(TARVB_Busca(T,k)) return T;
+  if(!T){
+    T=TARVB_Cria(t);
+    T->chave[0] = k;
+    T->nchaves=1;
+    return T;
+  }
+  if(T->nchaves == (2*t)-1){
+    TARVB *S = TARVB_Cria(t);
+    S->nchaves=0;
+    S->folha = 0;
+    S->filho[0] = T;
+    S = Divisao(S,1,T,t);
+    S = Insere_Nao_Completo(S,k,t);
+    return S;
+  }
+  T = Insere_Nao_Completo(T,k,t);
+  return T;
+}
+
+
+TARVB *TARVB_Libera_Remocao(TARVB *a){
+  free(a->chave);
+  free(a->filho);
+  free(a);
+  return NULL;
+}
+
+
+TARVB* remover(TARVB* arv, int ch, int t){
+  if(!arv) return arv;
+  int i;
+  printf("Removendo %d...\n", ch);
+  for(i = 0; i<arv->nchaves && arv->chave[i] < ch; i++);
+  if(i < arv->nchaves && ch == arv->chave[i]){ //CASOS 1, 2A, 2B e 2C
+    if(arv->folha){ //CASO 1
+      printf("\nCASO 1\n");
+      int j;
+      for(j=i; j<arv->nchaves-1;j++) arv->chave[j] = arv->chave[j+1];
+      arv->nchaves--;
+      if(!arv->nchaves){ //ultima revisao: 04/2020
+        TARVB_Libera(arv);
+        arv = NULL;
+      }
+      return arv;      
+    }
+    if(!arv->folha && arv->filho[i]->nchaves >= t){ //CASO 2A
+      printf("\nCASO 2A\n");
+      TARVB *y = arv->filho[i];  //Encontrar o predecessor k' de k na árvore com raiz em y
+      while(!y->folha) y = y->filho[y->nchaves];
+      int temp = y->chave[y->nchaves-1];
+      arv->filho[i] = remover(arv->filho[i], temp, t); 
+      //Eliminar recursivamente K e substitua K por K' em x
+      arv->chave[i] = temp;
+      return arv;
+    }
+    if(!arv->folha && arv->filho[i+1]->nchaves >= t){ //CASO 2B
+      printf("\nCASO 2B\n");
+      TARVB *y = arv->filho[i+1];  //Encontrar o sucessor k' de k na árvore com raiz em y
+      while(!y->folha) y = y->filho[0];
+      int temp = y->chave[0];
+      y = remover(arv->filho[i+1], temp, t); //Eliminar recursivamente K e substitua K por K' em x
+      arv->chave[i] = temp;
+      return arv;
+    }
+    if(!arv->folha && arv->filho[i+1]->nchaves == t-1 && arv->filho[i]->nchaves == t-1){ //CASO 2C
+      printf("\nCASO 2C\n");
+      TARVB *y = arv->filho[i];
+      TARVB *z = arv->filho[i+1];
+      y->chave[y->nchaves] = ch;          //colocar ch ao final de filho[i]
+      int j;
+      for(j=0; j<t-1; j++)                //juntar chave[i+1] com chave[i]
+        y->chave[t+j] = z->chave[j];
+      for(j=0; j<t; j++){                 //juntar filho[i+1] com filho[i]
+        y->filho[t+j] = z->filho[j];
+        z->filho[j] = NULL; //ultima revisao: 04/2020
+      }
+      y->nchaves = 2*t-1;
+      for(j=i; j < arv->nchaves-1; j++)   //remover ch de arv
+        arv->chave[j] = arv->chave[j+1];
+      for(j=i+1; j < arv->nchaves; j++)  
+        arv->filho[j] = arv->filho[j+1]; //remover ponteiro para filho[i+1]
+      arv->filho[j] = NULL;
+      TARVB_Libera_Remocao(z);
+      arv->nchaves--;
+      if(!arv->nchaves){ //ultima revisao: 04/2020
+        TARVB *temp = arv;
+        arv = arv->filho[0];
+        temp->filho[0] = NULL;
+        TARVB_Libera_Remocao(temp);
+        arv = remover(arv, ch, t);
+      }
+      else arv->filho[i] = remover(arv->filho[i], ch, t);
+      return arv;   
+    }   
+  }
+
+  TARVB *y = arv->filho[i], *z = NULL;
+  if (y->nchaves == t-1){ //CASOS 3A e 3B
+    if((i < arv->nchaves) && (arv->filho[i+1]->nchaves >=t)){ //CASO 3A
+      printf("\nCASO 3A: i menor que nchaves\n");
+      z = arv->filho[i+1];
+      y->chave[t-1] = arv->chave[i];   //dar a y a chave i da arv
+      y->nchaves++;
+      arv->chave[i] = z->chave[0];     //dar a arv uma chave de z
+      int j;
+      for(j=0; j < z->nchaves-1; j++)  //ajustar chaves de z
+        z->chave[j] = z->chave[j+1];
+      y->filho[y->nchaves] = z->filho[0]; //enviar ponteiro menor de z para o novo elemento em y
+      for(j=0; j < z->nchaves; j++)       //ajustar filhos de z
+        z->filho[j] = z->filho[j+1];
+      z->nchaves--;
+      arv->filho[i] = remover(arv->filho[i], ch, t);
+      return arv;
+    }
+    if((i > 0) && (!z) && (arv->filho[i-1]->nchaves >=t)){ //CASO 3A
+      printf("\nCASO 3A: i igual a nchaves\n");
+      z = arv->filho[i-1];
+      int j;
+      for(j = y->nchaves; j>0; j--)               //encaixar lugar da nova chave
+        y->chave[j] = y->chave[j-1];
+      for(j = y->nchaves+1; j>0; j--)             //encaixar lugar dos filhos da nova chave
+        y->filho[j] = y->filho[j-1];
+      y->chave[0] = arv->chave[i-1];              //dar a y a chave i da arv
+      y->nchaves++;
+      arv->chave[i-1] = z->chave[z->nchaves-1];   //dar a arv uma chave de z
+      y->filho[0] = z->filho[z->nchaves];         //enviar ponteiro de z para o novo elemento em y
+      z->nchaves--;
+      arv->filho[i] = remover(y, ch, t);
+      return arv;
+    }
+    if(!z){ //CASO 3B
+      if(i < arv->nchaves && arv->filho[i+1]->nchaves == t-1){
+        printf("\nCASO 3B: i menor que nchaves\n");
+        z = arv->filho[i+1];
+        y->chave[t-1] = arv->chave[i];     //pegar chave [i] e coloca ao final de filho[i]
+        y->nchaves++;
+        int j;
+        for(j=0; j < t-1; j++){
+          y->chave[t+j] = z->chave[j];     //passar filho[i+1] para filho[i]
+          y->nchaves++;
+        }
+        if(!y->folha){
+          for(j=0; j<t; j++){
+            y->filho[t+j] = z->filho[j];
+            z->filho[j] = NULL; //ultima revisao: 04/2020
+          }
+        }
+        TARVB_Libera(z);
+        for(j=i; j < arv->nchaves-1; j++){ //limpar referências de i
+          arv->chave[j] = arv->chave[j+1];
+          arv->filho[j+1] = arv->filho[j+2];
+        }
+        arv->filho[arv->nchaves] = NULL;
+        arv->nchaves--;
+        if(!arv->nchaves){ //ultima revisao: 04/2020
+          TARVB *temp = arv;
+          arv = arv->filho[0];
+          temp->filho[0] = NULL;
+          TARVB_Libera(temp);
+        }
+        arv = remover(arv, ch, t);
+        return arv;
+      }
+      if((i > 0) && (arv->filho[i-1]->nchaves == t-1)){ 
+        printf("\nCASO 3B: i igual a nchaves\n");
+        z = arv->filho[i-1];
+        if(i == arv->nchaves)
+          z->chave[t-1] = arv->chave[i-1]; //pegar chave[i] e poe ao final de filho[i-1]
+        else
+          z->chave[t-1] = arv->chave[i];   //pegar chave [i] e poe ao final de filho[i-1]
+        z->nchaves++;
+        int j;
+        for(j=0; j < t-1; j++){
+          z->chave[t+j] = y->chave[j];     //passar filho[i+1] para filho[i]
+          z->nchaves++;
+        }
+        if(!z->folha){
+          for(j=0; j<t; j++){
+            z->filho[t+j] = y->filho[j];
+            y->filho[j] = NULL; //ultima revisao: 04/2020
+          }
+        }
+        TARVB_Libera(y);
+        arv->filho[arv->nchaves] = NULL;
+        arv->nchaves--;
+        if(!arv->nchaves){ //ultima revisao: 04/2020
+          TARVB *temp = arv;
+          arv = arv->filho[0];
+          temp->filho[0] = NULL;
+          TARVB_Libera(temp);
+        }
+        else arv->filho[i-1] = z;
+        arv = remover(arv, ch, t);
+        return arv;
+      }
+    }
+  }  
+  arv->filho[i] = remover(arv->filho[i], ch, t);
+  return arv;
+}
+
+
+TARVB* TARVB_Retira(TARVB* arv, int k, int t){
+  if(!arv || !TARVB_Busca(arv, k)) return arv;
+  return remover(arv, k, t);
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct ArvB{
+  int nchaves, folha, *chave;
+  struct ArvB **filho;
+}TARVB;
+
+TARVB *TARVB_Inicializa();
+TARVB *TARVB_Cria(int t);
+TARVB *TARVB_Libera(TARVB *a);
+TARVB *TARVB_Busca(TARVB* x, int ch);
+TARVB *TARVB_Insere(TARVB *T, int k, int t);
+TARVB* TARVB_Retira(TARVB* arv, int k, int t);
+void TARVB_Imprime(TARVB *a);
+void TARVB_Imprime2(TARVB *a);
+
+
+
+--- Texto --- 
+
+
+
+
+
+
+
+
+
+--- Prompt para ajudar na explicação nao precisa incluir os nomes ou qualquer coisa referente ao prompt abaixo na resposta ele serve apenas como base para que a explicação seja o mais detalhada possivel ---
+
+
+
+
+
+
+
+### 📜 Protocolo de Transparência Matemática (Versão Dinâmica)
+
+
+
+> **"Atue como um mentor de matemática focado em 'Lógica de Primeira Instância'. Para qualquer problema, independentemente da complexidade ou área, siga estes 4 Pilares Dinâmicos:**
+
+>
+
+> 1. **Pilar da Simetria (A Balança):** É estritamente proibido 'pular' termos ou dizer que algo 'passou' para o outro lado. Toda e qualquer alteração na expressão deve ser apresentada como uma operação aplicada simultaneamente aos dois membros da igualdade. Se um termo foi simplificado, mostre a operação inversa que o neutralizou (ex: somar o oposto ou multiplicar pelo inverso).
+
+>
+
+> 2. **Pilar da Rastreabilidade de Unidades e Símbolos:** Trate variáveis ($x, y, z$) e operadores ($\int, \frac{d}{dx}, \sum, \Delta$) como entidades com significado próprio. Sempre que uma substituição ocorrer (como $u = f(x)$), exiba a 'taxa de conversão' entre elas (a derivada ou diferencial) de forma explícita, mostrando como o novo símbolo absorve ou ajusta os componentes do antigo para manter a equivalência.
+
+>
+
+> 3. **Pilar da Anatomia do Passo Intermediário:** Não realize computação mental implícita. Se uma fração foi simplificada, uma raiz foi extraída ou um logaritmo foi aplicado, escreva a etapa em que o operador é aplicado antes de mostrar o resultado final. O objetivo é que o rastro da transformação seja 100% visível.
+
+>
+
+> 4. **Pilar da Justificação de Ajuste:** Em qualquer mudança de base, sistema de coordenadas ou variável, mostre o 'preço' da mudança (o fator de ajuste). Explique por que, ao mudar a forma de ver o problema, a magnitude original precisa ser dividida ou multiplicada por um determinado valor para que o resultado continue sendo verdade."
+
+
+
+
+
+- adapte essas instrucoes para o contexto atual nem sempre sera um exercicio de matematica
+
+
+
+--- Prompt para ajudar na explicação nao precisa incluir os nomes ou qualquer coisa referente ao prompt abaixo na resposta ele serve apenas como base para que a explicação seja o mais detalhada possivel ---
