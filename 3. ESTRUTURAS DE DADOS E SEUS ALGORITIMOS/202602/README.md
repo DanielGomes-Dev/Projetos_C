@@ -1,12 +1,14 @@
 # Estruturas de Dados e seus Algoritmos — 202602
 
-Índice mestre do curso. A estrutura de pastas segue o sumário do livro-base (Szwarcfiter), e cada pasta tem um `README.md` com roteiro de leitura + notas de estudo elaboradas.
+Índice mestre do curso. A estrutura de pastas segue a ordem da **ementa oficial** da disciplina (`Ementa/ementa.md`) — não a ordem do sumário do livro-base —, e cada pasta tem um `README.md` com roteiro de leitura + notas de estudo elaboradas.
 
 ## Estrutura da pasta
 
-- **`Ementa/`** — o conteúdo teórico organizado pelo sumário do livro-base: 5 módulos, 15 subtópicos, cada um com seu `README.md` (roteiro de leitura, notas de estudo, exemplos em C, pontos de atenção).
-- **`Livros/`** — os 4 livros-texto em PDF (ver tabela abaixo).
-- **`ListasExercicios/`** — listas de exercícios do curso já resolvidas: PDF do enunciado + solução em C por questão (`Qx/claude/main.c`), organizadas em `lista01-EDA`, `lista02-EDA`, `lista03-EDA` e listas de revisão temáticas. Algumas trazem implementações genéricas reutilizadas nos exemplos em C da `Ementa/` (ex.: `TAB`, `TABB`, `TAVL` → árvores binárias, BST e AVL).
+- **`Ementa/`** — o conteúdo teórico organizado pelo sumário oficial da ementa: 6 módulos, 15 subtópicos, cada um com seu `README.md` (roteiro de leitura, notas de estudo, exemplos em C, pontos de atenção) e, em construção, uma pasta `Teoria - passo a passo/`.
+- **`Ementa/Livros/`** — os 4 livros-texto em PDF (ver tabela abaixo).
+- **`Ementa/ListasExercicios/`** — pasta **atual e única** de listas de exercícios já resolvidas: PDF do enunciado + solução em C por questão (`Qx/claude/main.c`), organizadas em `lista01-EDA`, `lista02-EDA`, `lista03-EDA`, `lista04-EDA`, `lista050607-EDA` e listas de revisão temáticas. Algumas trazem implementações genéricas reutilizadas nos exemplos em C da `Ementa/` (ex.: `TAB`, `TABB`, `TAVL` → árvores binárias, BST e AVL).
+  > A pasta `202602/ListasExercicios/` (fora de `Ementa/`) ficou desatualizada — não usar
+  > como fonte; `Ementa/ListasExercicios/` é a que recebe os PDFs e listas novas.
 
 ## Os 4 livros e o papel de cada um
 
@@ -23,15 +25,19 @@
 
 | Módulo | Subtópicos | Pasta | Livros principais |
 |---|---|---|---|
-| 1. Árvores | Binárias · Binárias de Busca · AVL · B · B+ | `Ementa/01 - Árvores/` | SZ (base) · CO (teoria/prova) · CE (implementação em C) |
+| 1. Árvores | Binárias · Binárias de Busca · AVL | `Ementa/01 - Árvores/` | SZ (base) · CO (teoria/prova) · CE (implementação em C) |
 | 2. Grafos | Conceitos e Representações · Algoritmos em Grafos | `Ementa/02 - Grafos/` | SZ (base) · CO (algoritmos clássicos: BFS/DFS, MST, caminhos mínimos) |
 | 3. Arquivos e Ordenação Externa | Arquivos Binários e Texto · Geração de Partições · Intercalação | `Ementa/03 - Arquivos e Ordenação Externa/` | SZ (base, único com foco em memória secundária) |
 | 4. Tabelas Hash | Memória Principal · Memória Secundária | `Ementa/04 - Tabelas Hash/` | SZ (base) · CO (teoria de hashing) · CE (implementação em C) |
-| 5. Heaps e Listas de Prioridade | Memória Principal · Memória Secundária · Listas de Prioridade | `Ementa/05 - Heaps e Listas de Prioridade/` | SZ (base) · CO (heapsort, heaps binomiais/Fibonacci) |
+| 5. Árvore B e B+ | Árvores B · Árvores B+ | `Ementa/05 - Árvore B e B+/` | SZ (base) · CO (prova de altura, pseudocódigo) |
+| 6. Heaps e Listas de Prioridade | Memória Principal · Memória Secundária · Listas de Prioridade | `Ementa/06 - Heaps e Listas de Prioridade/` | SZ (base) · CO (heapsort, heaps binomiais/Fibonacci) |
+
+> Numeração segue a ementa oficial (`ementa.md`), não a ordem do sumário do Szwarcfiter —
+> por isso Árvore B/B+ é módulo 5 (depois de Tabelas Hash), não parte do módulo 1.
 
 ## Ordem de estudo sugerida
 
-Segue a numeração das pastas (1 → 5), que já reflete uma progressão didática: estruturas em memória principal com foco crescente em complexidade (árvores simples → balanceadas → grafos) e depois os tópicos de "escala" (memória secundária, hashing, heaps/filas de prioridade). Dentro de cada módulo, siga a ordem numérica das subpastas (x.1 → x.2 → ...).
+Segue a numeração das pastas (1 → 6), que já reflete uma progressão didática: estruturas em memória principal com foco crescente em complexidade (árvores simples → balanceadas → grafos) e depois os tópicos de "escala" (memória secundária: arquivos, hashing, árvore B/B+, heaps). Dentro de cada módulo, siga a ordem numérica das subpastas (x.1 → x.2 → ...).
 
 ## Como cada `README.md` de tópico (dentro de `Ementa/`) está organizado
 

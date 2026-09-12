@@ -1,5 +1,8 @@
 # 3.3 Intercalação de Partições
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar. Este README é a referência rápida.
+
 ## Objetivo de aprendizagem
 
 - Entender como combinar múltiplas partições ordenadas (geradas em 3.2) até obter um único arquivo ordenado.

@@ -1,5 +1,8 @@
 # 3.2 Geração de Partições Classificadas
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar. Este README é a referência rápida.
+
 ## Objetivo de aprendizagem
 
 - Entender por que arquivos grandes (que não cabem em RAM) exigem uma fase de geração de partições ordenadas (runs) antes de poder ordenar o todo.

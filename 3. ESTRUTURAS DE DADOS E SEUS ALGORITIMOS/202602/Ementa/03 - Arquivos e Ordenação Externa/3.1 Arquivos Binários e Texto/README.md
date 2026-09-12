@@ -1,5 +1,9 @@
 # 3.1 Arquivos Binários e Texto
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com exemplos tirados dos PDFs de aula. Este README é
+> a referência rápida (roteiro de leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Entender a diferença estrutural entre arquivo texto e arquivo binário (representação, portabilidade, tamanho).
@@ -9,7 +13,7 @@
 
 ## Roteiro de leitura
 
-- **SZ (livro-base):** capítulo de Arquivos — organização de arquivos, tipos de registro, modos de acesso (conferir página exata).
+- **SZ (livro-base):** conferido o sumário completo do livro (`Livros/02 - ...Szwarcfiter...AVL.pdf`, extraído via `pdftotext`) — esta edição **não tem nenhum capítulo sobre arquivos/E-S** (os 12 capítulos cobrem só estruturas de memória principal: listas, árvores, ordenação interna, autoajustáveis, hash, busca digital, cadeias). Não é fonte para este subtópico, apesar do que a ementa original sugeria — a referência prática real é o KR abaixo, e os PDFs de aula.
 - **CO (Cormen):** não tem capítulo dedicado a organização de arquivos — este subtópico é essencialmente ausente do CLRS.
 - **CE (Celes):** não cobre arquivos/E-S de arquivo como tópico de estrutura de dados (o livro foca em estruturas de memória principal) — não usar como referência aqui.
 - **KR:** cap. 7 "Entrada e Saída", especialmente as seções de acesso a arquivo (`fopen`, `fclose`, `fread`, `fwrite`, `fseek`, `ftell`) (conferir página exata) — esta é a referência prática mais direta para implementar este subtópico.

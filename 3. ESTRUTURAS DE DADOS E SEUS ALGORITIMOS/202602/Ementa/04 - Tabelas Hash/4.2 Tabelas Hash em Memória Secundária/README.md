@@ -1,5 +1,9 @@
 # 4.2 Tabelas Hash em Memória Secundária
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar. Este README é a referência rápida (roteiro de
+> leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Entender por que hashing em disco precisa de uma estratégia diferente do hashing em memória principal (minimizar acessos a disco, não comparações).

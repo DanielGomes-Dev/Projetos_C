@@ -1,5 +1,11 @@
 # 2.2 Algoritmos em Grafos
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — cobre, com exemplo real da lista04-EDA, os algoritmos efetivamente vistos até agora
+> (contagem, k-regularidade, coloração, igualdade de grafos). BFS/DFS/MST/caminhos mínimos
+> abaixo são resumo de livro (CO/Cormen) — ainda sem PDF de aula ou exercício que os cubra;
+> vira `Teoria - passo a passo` completa assim que aparecer.
+
 ## Objetivo de aprendizagem
 
 - Implementar e analisar BFS e DFS, e saber quando usar cada um.

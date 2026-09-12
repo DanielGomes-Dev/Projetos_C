@@ -1,5 +1,9 @@
 # 1.2 Árvores Binárias de Busca (BST)
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com exemplos tirados dos PDFs de aula. Este README é
+> a referência rápida (roteiro de leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Enunciar a propriedade de BST e explicar por que ela permite busca eficiente.

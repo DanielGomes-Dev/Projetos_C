@@ -1,5 +1,9 @@
 # 1.1 Árvores Binárias
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com exemplos tirados dos PDFs de aula. Este README é
+> a referência rápida (roteiro de leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Definir formalmente árvore binária e distinguir árvore cheia, completa e perfeita.

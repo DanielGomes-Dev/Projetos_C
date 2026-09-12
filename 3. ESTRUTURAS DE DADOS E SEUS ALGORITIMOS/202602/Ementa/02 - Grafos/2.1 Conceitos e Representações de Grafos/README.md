@@ -1,5 +1,9 @@
 # 2.1 Conceitos e Representações de Grafos
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com exemplos tirados dos PDFs de aula e do código
+> real da lista (`TG.h`/`TG.c`). Este README é a referência rápida.
+
 ## Objetivo de aprendizagem
 
 - Dominar a terminologia formal de grafos (grau, caminho, ciclo, conexidade, ponderação).

@@ -1,5 +1,9 @@
 # 4.1 Tabelas Hash em Memória Principal
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com o exemplo real do livro-base (matrícula de aluno,
+> CE/Celes). Este README é a referência rápida (roteiro de leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Entender como uma função hash mapeia chaves para posições de um vetor e o que torna uma função hash "boa".
