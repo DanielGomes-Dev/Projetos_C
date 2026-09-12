@@ -1,5 +1,9 @@
 # 1.3 Árvores AVL
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com um trace completo de inserção no final. Este
+> README é a referência rápida (roteiro de leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Definir fator de balanceamento e a invariante AVL.

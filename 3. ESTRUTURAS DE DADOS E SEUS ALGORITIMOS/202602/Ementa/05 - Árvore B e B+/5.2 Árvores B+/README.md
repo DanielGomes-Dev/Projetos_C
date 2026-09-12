@@ -1,5 +1,9 @@
 # 5.2 Árvores B+
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com a árvore de exemplo abaixo traçada passo a passo.
+> Este README é a referência rápida (roteiro de leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Explicar as duas diferenças estruturais entre árvore B e árvore B+.

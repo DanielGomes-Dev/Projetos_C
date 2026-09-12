@@ -12,10 +12,14 @@
 - Diferente de Q1 (percurso simples de uma lista), aqui é preciso somar **duas listas
   aninhadas**: a de vértices e, para cada um, a de vizinhos.
 - Estratégia: somar o grau (comprimento da lista de vizinhos) de todo vértice, depois
-  **dividir por 2** — porque a representação não-orientada do curso guarda cada aresta
-  duas vezes (uma em cada extremidade; ver 2.1 Teoria 06).
-- Por quê funciona: cada aresta real contribui exatamente 2 unidades pra soma bruta (uma
-  contagem em cada ponta) — dividir por 2 desfaz essa duplicação.
+  **dividir por 2** — mas essa divisão só está certa porque **este grafo é não orientado**
+  (o teste monta o grafo com `TG_ins_aresta`, que guarda cada aresta duas vezes, uma em
+  cada extremidade; ver 2.1 Teoria 06 e 2.2 Teoria 01). Se o grafo fosse **orientado**
+  (dígrafo), cada aresta ficaria guardada uma única vez e a soma dos graus **não** seria
+  dividida por 2 — ver o contraexemplo do slide "Lista de Adjacência" na 2.2 Teoria 01.
+- Por quê funciona (neste caso não orientado): cada aresta real contribui exatamente 2
+  unidades pra soma bruta (uma contagem em cada ponta) — dividir por 2 desfaz essa
+  duplicação.
 
 ## 3. Resolução passo a passo
 

@@ -58,11 +58,22 @@ Módulos 4 (Tabelas Hash), 5 (Árvore B e B+) e 6 (Heaps) ainda não têm lista 
 
 | Módulo | Subtópicos | `Teoria - passo a passo/` | `Passo a Passo Lista/` |
 |---|---|---|---|
-| 1 — Árvores | 1.1–1.3 | 🚧 em construção (1.1) | 🚧 a fazer (lista01–03) |
-| 2 — Grafos | 2.1–2.2 | 🚧 a fazer | 🚧 a fazer (lista04) |
-| 3 — Arquivos e Ordenação Externa | 3.1–3.3 | 🚧 a fazer | 🚧 a fazer (lista050607) |
-| 4 — Tabelas Hash | 4.1–4.2 | 🚧 a fazer | — (sem lista própria ainda) |
-| 5 — Árvore B e B+ | 5.1–5.2 | 🚧 a fazer | — (sem lista própria ainda) |
-| 6 — Heaps e Listas de Prioridade | 6.1–6.3 | 🚧 a fazer | — (sem lista própria ainda) |
+| 1 — Árvores | 1.1–1.3 | ✅ completo | ✅ completo (lista01–03) |
+| 2 — Grafos | 2.1–2.2 | ✅ completo | ✅ completo (lista04) |
+| 3 — Arquivos e Ordenação Externa | 3.1–3.3 | ✅ completo | ✅ completo (lista05–07) |
+| 4 — Tabelas Hash | 4.1–4.2 | ✅ completo | — (sem lista própria ainda — turma não chegou lá) |
+| 5 — Árvore B e B+ | 5.1–5.2 | ✅ completo | — (sem lista própria ainda — turma não chegou lá) |
+| 6 — Heaps e Listas de Prioridade | 6.1–6.3 | ✅ completo | — (sem lista própria ainda — turma não chegou lá) |
+
+Todos os 15 subtópicos da ementa têm `Teoria - passo a passo/` completa. Módulos 1–3 (que já
+têm lista de exercícios resolvida) também têm `Passo a Passo Lista/` completa — 29 questões
+ao todo, em `lista01` a `lista07`. Módulos 4–6 usam os 4 livros-base como fonte (sem PDF de
+aula ainda, pois a turma não chegou lá) — a página exata de cada citação pode não estar
+confirmada nesta máquina (falta `poppler`/`pdftoppm` para abrir os PDFs por página); confira
+no seu exemplar antes de citar em prova.
+
+> **Fora do escopo desta rodada:** as listas de revisão (`lista_revisao_TLSE-EDA`,
+> `lista_revisao_tipos_primitivos-EDA`, `lista_revisao_vetor-EDA`) são pré-requisitos, não
+> ligados a um subtópico numerado da ementa — ainda não têm `Passo a Passo Lista/`.
 
 Se achar um erro de conta, um exemplo com origem errada, ou um link quebrado, é só avisar.

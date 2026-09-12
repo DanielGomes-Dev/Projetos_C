@@ -4,9 +4,9 @@
 
 ## Estrutura da pasta
 
-- **`Ementa/`** — o conteúdo teórico organizado pelo sumário oficial da ementa: 6 módulos, 15 subtópicos, cada um com seu `README.md` (roteiro de leitura, notas de estudo, exemplos em C, pontos de atenção) e, em construção, uma pasta `Teoria - passo a passo/`.
+- **`Ementa/`** — o conteúdo teórico organizado pelo sumário oficial da ementa: 6 módulos, 15 subtópicos, cada um com seu `README.md` (roteiro de leitura, notas de estudo, exemplos em C, pontos de atenção) e uma pasta `Teoria - passo a passo/` (completa nos 15 subtópicos — ver estado detalhado em `Ementa/README.md`).
 - **`Ementa/Livros/`** — os 4 livros-texto em PDF (ver tabela abaixo).
-- **`Ementa/ListasExercicios/`** — pasta **atual e única** de listas de exercícios já resolvidas: PDF do enunciado + solução em C por questão (`Qx/claude/main.c`), organizadas em `lista01-EDA`, `lista02-EDA`, `lista03-EDA`, `lista04-EDA`, `lista050607-EDA` e listas de revisão temáticas. Algumas trazem implementações genéricas reutilizadas nos exemplos em C da `Ementa/` (ex.: `TAB`, `TABB`, `TAVL` → árvores binárias, BST e AVL).
+- **`Ementa/ListasExercicios/`** — pasta **atual e única** de listas de exercícios já resolvidas: PDF do enunciado + solução em C por questão (`Qx/claude/main.c`), organizadas em `lista01-EDA`, `lista02-EDA`, `lista03-EDA`, `lista04-EDA`, `lista050607-EDA` (com `lista05/06/07-EDA` dentro) e listas de revisão temáticas. Algumas trazem implementações genéricas reutilizadas nos exemplos em C da `Ementa/` (ex.: `TAB`, `TABB`, `TAVL` → árvores binárias, BST e AVL). Cada lista com solução já resolvida também tem uma pasta `Passo a Passo Lista/` (completa, uma explicação por questão).
   > A pasta `202602/ListasExercicios/` (fora de `Ementa/`) ficou desatualizada — não usar
   > como fonte; `Ementa/ListasExercicios/` é a que recebe os PDFs e listas novas.
 

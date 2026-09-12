@@ -3,17 +3,23 @@
 > **Onde isto entra:** o algoritmo mais simples possível sobre grafo — e a base de quase
 > todo algoritmo maior (quase tudo precisa "andar por todos os vértices" ou "por todos os
 > vizinhos" em algum momento).
-> **Antes:** [[../../2.1 Conceitos e Representações de Grafos/Teoria - passo a passo/Teoria 06 - Representando um grafo em C|2.1 Teoria 06 - Representando um grafo em C]].
-> **Fonte:** representação `TG`/`TVIZ` do curso (`ListasExercicios/lista04-EDA/TG/`); os
-> PDFs de aula deste curso (págs. 1–53) cobrem definições e representações, mas **não**
-> cobrem contagem/algoritmos — este arquivo usa a mesma struct, é o primeiro algoritmo
-> real sobre ela.
+> **Antes:** [[../../2.1 Conceitos e Representações de Grafos/Teoria - passo a passo/Teoria 06 - Representando um grafo em C|2.1 Teoria 06 - Representando um grafo em C]] ·
+> [[../../2.1 Conceitos e Representações de Grafos/Teoria - passo a passo/Teoria 02 - Grafo orientado (digrafo) vs. não orientado|2.1 Teoria 02 - Orientado vs. não orientado]].
+> **Fonte:** representação `TG`/`TVIZ` do curso (`ListasExercicios/lista04-EDA/TG/`), usada
+> em todas as questões Q1–Q5 da lista04-EDA (todas constroem grafo **não orientado**, com
+> `TG_ins_aresta`); e `07_Grafos_2026_09_01.pdf`, pág. 49 ("Lista de Adjacência"), que
+> mostra o caso **orientado** — usado aqui de contraste.
 
 ## 1. A ideia em uma frase
 
-Contar vértices é percorrer a **lista de vértices** contando um a um. Contar arestas é
-diferente: é preciso somar o **grau de cada vértice** e dividir por 2 — porque, na
-representação deste curso (2.1, Teoria 06), toda aresta é guardada duas vezes.
+Contar vértices é percorrer a **lista de vértices** contando um a um — isso não muda com o
+tipo de grafo. Contar arestas já depende do tipo: em um grafo **não orientado** (como em
+todas as questões desta lista, que usam `TG_ins_aresta`), cada aresta fica guardada
+**duas vezes** — uma em cada extremidade — então é preciso somar o grau de cada vértice e
+**dividir por 2**. Num grafo **orientado** (dígrafo), cada aresta fica guardada **uma única
+vez** (na lista do vértice de onde ela sai) — a soma dos graus de saída já é a resposta
+certa, **sem dividir**. A diferença não é da struct `TG` (que serve pros dois casos) — é de
+**qual função de inserção você chama** ao montar o grafo.
 
 ## 2. Contando vértices — motivação antes do código
 
@@ -40,12 +46,33 @@ int nn(TG *g) {
 `total=0, g=nó1` → `total=1, g=nó2` → `total=2, g=nó3` → `total=3, g=NULL` → sai do
 `while`, devolve `3`. ✔ Custo: **O(V)** — olha cada vértice uma vez, nunca olha aresta.
 
-## 3. Contando arestas — por que não é só "somar os graus"
+## 3. Contando arestas — por que (neste curso) não é só "somar os graus"
 
 Ingenuamente, você poderia pensar: "para cada vértice, conto quantos vizinhos ele tem, e
-somo tudo". Mas isso **conta cada aresta duas vezes** — a aresta `{u,v}` aparece como
-vizinho `v` na lista de `u`, **e** como vizinho `u` na lista de `v` (Teoria 06 de 2.1:
-`TG_ins_aresta` insere nos dois sentidos).
+somo tudo". Para as questões desta lista, isso **conta cada aresta duas vezes** — a aresta
+não orientada `{u,v}` aparece como vizinho `v` na lista de `u`, **e** como vizinho `u` na
+lista de `v` (Teoria 06 de 2.1: `TG_ins_aresta` chama `TG_ins_um_sentido` duas vezes, uma
+para cada sentido).
+
+> **Isso só vale porque o grafo é não orientado.** Compare com o slide "Lista de
+> Adjacência" (`07_Grafos_2026_09_01.pdf`, pág. 49), que mostra um grafo **orientado**
+> `1→2, 1→3, 2→3, 2→4, 3→4`, com estas listas:
+> ```
+> 1: 2 3 /
+> 2: 3 4 /
+> 3: 4 /
+> 4: /
+> ```
+> Somando o tamanho de cada lista: `2 + 2 + 1 + 0 = 5` — e o grafo **tem exatamente 5
+> arestas**. Não há divisão por 2 aqui: cada aresta orientada `(u,v)` só é guardada **uma
+> vez**, na lista de `u` (quem ela sai), nunca na de `v` (quem ela entra) — é por isso que o
+> vértice `4` (que só recebe arestas, nunca é origem de nenhuma) tem lista **vazia**, mesmo
+> tendo grau de entrada 2.
+>
+> A função `na` abaixo (com `soma / 2`) está certa **para esta lista**, porque as questões
+> Q1–Q5 constroem o grafo com `TG_ins_aresta` (não orientado). Se você precisasse contar
+> arestas de um grafo **orientado** representado do mesmo jeito (com `TG_ins_um_sentido`
+> chamado direto, uma vez por aresta), a função certa seria a mesma soma **sem** o `/2`.
 
 ```c
 int na(TG *g) {
@@ -88,8 +115,8 @@ inserção de arestas (uma das duas metades não foi inserida).
 | O passo mecânico | O que ele realmente é |
 |---|---|
 | percorrer a lista de vértices, `total++` a cada um | conto O(V) elementos de uma lista — nada específico de grafo |
-| somar o comprimento de todas as listas de vizinhos | conto o total de "pontas de aresta" (2 por aresta) |
-| dividir a soma por 2 | corrijo a dupla-contagem inerente à representação não-orientada |
+| somar o comprimento de todas as listas de vizinhos | conto o total de "pontas de aresta" registradas (2 por aresta, **se** o grafo for não orientado; 1 por aresta, se for orientado) |
+| dividir a soma por 2 | corrijo a dupla-contagem que a escolha de representar um grafo **não orientado** introduz — só faço isso porque sei que estas questões usam `TG_ins_aresta` |
 
 ## 6. Exercícios de fixação
 
@@ -116,9 +143,11 @@ inserção de arestas (uma das duas metades não foi inserida).
 ## Resumo
 
 - `nn`: percurso simples da lista de vértices, O(V).
-- `na`: soma o grau (comprimento da lista de vizinhos) de todo vértice e divide por 2 —
-  O(V+E) — porque a representação não-orientada guarda cada aresta duas vezes.
-- Soma dos graus é sempre par — é uma boa forma de **conferir** se a construção do grafo
-  está correta.
+- `na`: soma o grau (comprimento da lista de vizinhos) de todo vértice — O(V+E). **Divide
+  por 2** se o grafo é não orientado (como em todas as questões desta lista, que usam
+  `TG_ins_aresta` e guardam cada aresta duas vezes); **não divide** se o grafo é orientado
+  (cada aresta guardada uma única vez, como no exemplo "Lista de Adjacência" do PDF).
+- Soma dos graus (não orientado) é sempre par — é uma boa forma de **conferir** se a
+  construção do grafo está correta.
 
 **Próximo:** [[Teoria 02 - Grau-regularidade de um grafo]].

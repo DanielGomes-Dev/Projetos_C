@@ -223,4 +223,4 @@ Continuando a partir da árvore final da seção 4 (m=3), insira, nesta ordem: `
   crescer em altura, o que garante que todas as folhas continuam na mesma profundidade.
 - Split é sempre um processo de baixo para cima, nunca "no meio" da árvore.
 
-**Próximo:** [[Teoria 05 - Merge e redistribuição na remoção (m=3, passo a passo)]].
+**Próximo:** [[Teoria 05 - Merge e redistribuição na remoção]].

@@ -1,5 +1,9 @@
 # 5.1 Árvores B
 
+> **Aprendendo do zero?** Comece por [[Teoria - passo a passo/README|Teoria - passo a passo/]]
+> — um conceito por arquivo, devagar, com exemplos concretos (m=3) construídos passo a
+> passo. Este README é a referência rápida (roteiro de leitura + notas + código).
+
 ## Objetivo de aprendizagem
 
 - Definir ordem *m* de uma árvore B e suas propriedades estruturais.

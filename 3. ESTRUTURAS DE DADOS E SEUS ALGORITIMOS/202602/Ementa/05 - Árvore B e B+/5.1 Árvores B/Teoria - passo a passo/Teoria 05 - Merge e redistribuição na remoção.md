@@ -1,9 +1,9 @@
-# Teoria 04 — Merge e redistribuição: como a árvore B remove sem violar suas regras
+# Teoria 05 — Merge e redistribuição: como a árvore B remove sem violar suas regras
 
-> **Onde isto entra:** é o espelho da Teoria 03 — lá, inserção podia fazer um nó "estourar
+> **Onde isto entra:** é o espelho da Teoria 04 — lá, inserção podia fazer um nó "estourar
 > por cima" (overflow); aqui, remoção pode fazer um nó "estourar por baixo" (underflow,
 > menos chaves que o mínimo).
-> **Antes:** [[Teoria 03 - Split na inserção]].
+> **Antes:** [[Teoria 04 - Split na inserção (m=3, passo a passo)]].
 > **Fonte:** SZ (livro-base) · CO (Cormen, cap. Árvores B — pseudocódigo B-TREE-DELETE;
 > conferir página exata).
 
@@ -95,7 +95,7 @@ continua com 2 níveis — **não precisou encolher**, porque havia sobra para e
 | substituir por predecessor/sucessor (nó interno) | transformo "remover do meio" em "remover de uma folha", onde é seguro simplesmente tirar |
 | checar se o irmão tem sobra antes de fundir | escolho a operação **mais barata** que resolve o underflow sem afetar mais nada acima |
 | fundir com a chave do pai | reverto o que o split fez — devolvo ao nível de baixo uma chave que só existia como separador |
-| árvore perde um nível quando o merge alcança a raiz | é o único jeito da árvore B encolher, espelhando o único jeito dela crescer (Teoria 03) |
+| árvore perde um nível quando o merge alcança a raiz | é o único jeito da árvore B encolher, espelhando o único jeito dela crescer (Teoria 04) |
 
 ## 7. Exercícios de fixação
 
