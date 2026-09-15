@@ -14,8 +14,9 @@
 1. **[1.1 Árvores Binárias](1.1%20Árvores%20Binárias/README.md)** — definições, tipos (cheia, completa, perfeita), percursos (pré-ordem, em-ordem, pós-ordem, em largura).
 2. **[1.2 Árvores Binárias de Busca](1.2%20Árvores%20Binárias%20de%20Busca/README.md)** — a propriedade de ordenação que permite busca eficiente; busca, inserção, remoção; risco de degeneração.
 3. **[1.3 Árvores AVL](1.3%20Árvores%20AVL/README.md)** — a primeira árvore auto-balanceada do curso; fator de balanceamento e rotações.
+4. **[1.4 Árvore Numero Variavel de Filhos](1.4%20Árvore%20Numero%20Variavel%20de%20Filhos/README.md)** — árvores em que um nó pode ter qualquer número de filhos (representação por lista de filhos: primeiro filho + próximo irmão).
 
-Ordem de estudo recomendada: siga a numeração acima (1.1 → 1.3). Cada subtópico depende do anterior.
+Ordem de estudo recomendada: siga a numeração acima (1.1 → 1.4). Cada subtópico depende do anterior.
 
 > Árvores multi-caminho para disco (B e B+) não ficam aqui — a ementa oficial as trata como
 > capítulo próprio, depois de Tabelas Hash. Ver [[../05 - Árvore B e B+/README|05 - Árvore B e B+]].
