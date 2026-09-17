@@ -1,7 +1,0 @@
--> Motivação para árvores com número variável de filhos;
--> Definição de árvores com número variável de filhos usando dois ponteiros (isto é, os ponteiros prim_filho e prox_irmao); e
--> Implementações de algumas operações da estrutura de dados supracitada: 
-    - (a) criação de um nó, 
-    - (b) busca em profundidade de uma informação nesta árvore, 
-    - (c) inserção de um elemento nessa árvore variável, sendo que o pai já deve estar inserido na árvore, 
-    - (d) impressão e liberação, em profundidade, dessa árvore.
